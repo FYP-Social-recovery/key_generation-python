@@ -46,8 +46,9 @@ def byte_to_bit(seed):
 #generate mnemonic words 
 def generateMnemonic(entropy):
     mnemonic =bip39.encode_bytes(entropy)
-    print(mnemonic)
+    print("mnemonic:",mnemonic)
     return mnemonic
+
 
 
 
@@ -89,13 +90,13 @@ def getExtendedPublicKeyFromPath(bip32,path="m/44'/0'/0'"):
     return extendedPublicKey 
  
 #create public keys and the private keys for a given path 
-def getPublicKeyFromPath(bip32,path="m/44'/0'/0'"):
+def getPublicKeyFromPath(bip32,path="m/44'/60'/0'/0/0"):
     publicKey= bip32.get_pubkey_from_path(path)
     print("public key of the given path: ",path,hex(int(byte_to_bit(publicKey),2)))
     publicKeyHex=hex(int(byte_to_bit(publicKey),2))
     return publicKeyHex
 
-def getPrivateKEyFromPath(bip32,path="m/44'/0'/0'"):
+def getPrivateKeyFromPath(bip32,path="m/44'/60'/0'/0/0"):
     privateKey=bip32.get_privkey_from_path(path)
     print("Private key of the given path: ",path,hex(int(byte_to_bit(privateKey),2)))
     privateKeyHex=hex(int(byte_to_bit(privateKey),2))
@@ -113,14 +114,17 @@ def main(password=""):
     xprv=getExtendedPrivateKEyFromPath(bip32,"m/44'/0'/0'")
     xpub=getExtendedPublicKeyFromPath(bip32,"m/44'/0'/0'")
     
-    prv1=getPrivateKEyFromPath(bip32,"m/44'/0'/0'/0")
-    pub1=getPublicKeyFromPath(bip32,"m/44'/0'/0'/0")
+    prv1=getPrivateKeyFromPath(bip32,"m/44'/60'/0'/0/0")
+    pub1=getPublicKeyFromPath(bip32,"m/44'/60'/0'/0/0")
 
-    prv2=getPrivateKEyFromPath(bip32,"m/44'/0'/0'/1")
+    prv2=getPrivateKeyFromPath(bip32,"m/44'/0'/0'/1")
     pub2=getPublicKeyFromPath(bip32,"m/44'/0'/0'/1")
 
-    prv3=getPrivateKEyFromPath(bip32,"m/44'/0'/0'/2")
+    prv3=getPrivateKeyFromPath(bip32,"m/44'/0'/0'/2")
     pub3=getPublicKeyFromPath(bip32,"m/44'/0'/0'/2")
+
+    # prv4=getPrivateKeyFromPath(bip32,"m/44'/60'/0'/0/0")
+    # pub4=getPublicKeyFromPath(bip32,"m/44'/60'/0'/0/0")
 
     return entropy,mnemonic,seed,bip32,xprv,xpub,prv1,pub1,prv2,pub2,prv3,pub3
 
